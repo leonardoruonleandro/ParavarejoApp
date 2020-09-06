@@ -2,30 +2,29 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
-
-using ParavarejoApp.Models;
 using ParavarejoApp.Views;
+using ParavarejoApp.Models.ParavarejoLucroReal;
+using System.Linq;
 
 namespace ParavarejoApp.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
-        private Item _selectedItem;
+        private LucroRealItem _selectedItem;
 
-        public ObservableCollection<Item> Items { get; }
+        public ObservableCollection<LucroRealItem> Items { get; }
         public Command LoadItemsCommand { get; }
         public Command AddItemCommand { get; }
-        public Command<Item> ItemTapped { get; }
+        public Command<LucroRealItem> ItemTapped { get; }
 
         public ItemsViewModel()
         {
             Title = "Browse";
-            Items = new ObservableCollection<Item>();
+            Items = new ObservableCollection<LucroRealItem>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
-            ItemTapped = new Command<Item>(OnItemSelected);
+            ItemTapped = new Command<LucroRealItem>(OnItemSelected);
 
             AddItemCommand = new Command(OnAddItem);
         }
@@ -42,6 +41,7 @@ namespace ParavarejoApp.ViewModels
                 {
                     Items.Add(item);
                 }
+                Services.Services.GetInstance().LucroRealModel.CalculateLucroReal(Items.ToList());
             }
             catch (Exception ex)
             {
@@ -59,7 +59,7 @@ namespace ParavarejoApp.ViewModels
             SelectedItem = null;
         }
 
-        public Item SelectedItem
+        public LucroRealItem SelectedItem
         {
             get => _selectedItem;
             set
@@ -74,7 +74,7 @@ namespace ParavarejoApp.ViewModels
             await Shell.Current.GoToAsync(nameof(NewItemPage));
         }
 
-        async void OnItemSelected(Item item)
+        async void OnItemSelected(LucroRealItem item)
         {
             if (item == null)
                 return;

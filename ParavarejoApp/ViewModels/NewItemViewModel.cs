@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
 using ParavarejoApp.Models;
+using ParavarejoApp.Models.ParavarejoLucroReal;
 using Xamarin.Forms;
 
 namespace ParavarejoApp.ViewModels
 {
     public class NewItemViewModel : BaseViewModel
     {
-        private string text;
-        private string description;
+        private LucroRealVariable variable;
 
         public NewItemViewModel()
         {
@@ -22,20 +22,13 @@ namespace ParavarejoApp.ViewModels
 
         private bool ValidateSave()
         {
-            return !String.IsNullOrWhiteSpace(text)
-                && !String.IsNullOrWhiteSpace(description);
+            return LucroRealVariable.None != variable;
         }
 
-        public string Text
+        public LucroRealVariable Variable
         {
-            get => text;
-            set => SetProperty(ref text, value);
-        }
-
-        public string Description
-        {
-            get => description;
-            set => SetProperty(ref description, value);
+            get => variable;
+            set => SetProperty(ref variable, value);
         }
 
         public Command SaveCommand { get; }
@@ -49,12 +42,7 @@ namespace ParavarejoApp.ViewModels
 
         private async void OnSave()
         {
-            Item newItem = new Item()
-            {
-                Id = Guid.NewGuid().ToString(),
-                Text = Text,
-                Description = Description
-            };
+            LucroRealItem newItem = new LucroRealItem(Guid.NewGuid().ToString(), Variable, true, true);
 
             await DataStore.AddItemAsync(newItem);
 

@@ -7,12 +7,13 @@ using Xamarin.Forms;
 
 using ParavarejoApp.Models;
 using ParavarejoApp.Services;
+using ParavarejoApp.Models.ParavarejoLucroReal;
 
 namespace ParavarejoApp.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
+        public IDataStore<LucroRealItem> DataStore => DependencyService.Get<IDataStore<LucroRealItem>>();
 
         bool isBusy = false;
         public bool IsBusy

@@ -2,13 +2,26 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ParavarejoApp.Views.ItemDetailPage"
+             xmlns:resources="clr-namespace:ParavarejoApp.Views.Resources"
+             xmlns:local="clr-namespace:ParavarejoApp.ViewModels"
              Title="{Binding Title}">
 
-    <StackLayout Spacing="20" Padding="15">
-        <Label Text="Text:" FontSize="Medium" />
-        <Label Text="{Binding Text}" FontSize="Small"/>
-        <Label Text="Description:" FontSize="Medium" />
-        <Label Text="{Binding Description}" FontSize="Small"/>
-    </StackLayout>
-    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <resources:EnumDescriptionConverter x:Key="EnumDescriptionConverter" />
+            <resources:BooleanReverseConverter x:Key="BooleanReverseConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <RefreshView x:DataType="local:ItemDetailViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+        <StackLayout Spacing="20" Padding="15">
+
+            <Label Text="Descrição:" FontSize="Medium" />
+            <Label Text="{Binding Description}" FontSize="Large"/>
+            <Label Text="Percentual:" FontSize="Medium" IsVisible="{Binding HasPercentual}" />
+            <Editor Text="{Binding PercentualValue }" IsVisible="{Binding HasPercentual}" IsReadOnly="{Binding IsEditable, Converter={StaticResource BooleanReverseConverter}}" />
+            <Label Text="Valor [R$]:" FontSize="Medium" />
+            <Editor Text="{Binding CurrenceValue }" IsReadOnly="{Binding IsEditable}" IsEnabled="{Binding IsEditable, Converter={StaticResource BooleanReverseConverter}}" />
+        </StackLayout>
+    </RefreshView>
 </ContentPage>

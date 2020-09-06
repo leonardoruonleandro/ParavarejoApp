@@ -6,12 +6,13 @@ using Xamarin.Forms.Xaml;
 
 using ParavarejoApp.Models;
 using ParavarejoApp.ViewModels;
+using ParavarejoApp.Models.ParavarejoLucroReal;
 
 namespace ParavarejoApp.Views
 {
     public partial class NewItemPage : ContentPage
     {
-        public Item Item { get; set; }
+        public LucroRealItem Item { get; set; }
 
         public NewItemPage()
         {

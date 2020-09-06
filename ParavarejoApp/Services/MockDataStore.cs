@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ParavarejoApp.Models;
 using ParavarejoApp.Models.ParavarejoLucroReal;
 
 namespace ParavarejoApp.Services
@@ -15,12 +14,15 @@ namespace ParavarejoApp.Services
         {
             items = new List<LucroRealItem>()
             {
-                new LucroRealItem { Id = Guid.NewGuid().ToString(), Text = "First item", IsEditable = false },
-                new LucroRealItem { Id = Guid.NewGuid().ToString(), Text = "Second item", Value=0 },
-                new LucroRealItem { Id = Guid.NewGuid().ToString(), Text = "Third item",  Value=0 },
-                new LucroRealItem { Id = Guid.NewGuid().ToString(), Text = "Fourth item", Value=0 },
-                new LucroRealItem { Id = Guid.NewGuid().ToString(), Text = "Fifth item", Value=0 },
-                new LucroRealItem { Id = Guid.NewGuid().ToString(), Text = "Sixth item", Value=0 }
+                new LucroRealItem(Guid.NewGuid().ToString(), LucroRealVariable.PreçoDeCompra, true, false)  ,
+                new LucroRealItem(Guid.NewGuid().ToString(), LucroRealVariable.CreditoICMS, true, true )  ,
+                new LucroRealItem(Guid.NewGuid().ToString(), LucroRealVariable.CreditoPISCofins, true, true)  ,
+                new LucroRealItem(Guid.NewGuid().ToString(), LucroRealVariable.AcrescimoIPI, true, true)  ,
+                new LucroRealItem(Guid.NewGuid().ToString(), LucroRealVariable.PreçoDeCusto, false, false)  ,
+                new LucroRealItem(Guid.NewGuid().ToString(), LucroRealVariable.PreçoDeVenda, true, false)  ,
+                new LucroRealItem(Guid.NewGuid().ToString(), LucroRealVariable.DebitoICMS, true, true)  ,
+                new LucroRealItem(Guid.NewGuid().ToString(), LucroRealVariable.DebitoPISCofins, true, true)  ,
+                new LucroRealItem(Guid.NewGuid().ToString(), LucroRealVariable.LucroBruto, false, true)  ,
             };
         }
 

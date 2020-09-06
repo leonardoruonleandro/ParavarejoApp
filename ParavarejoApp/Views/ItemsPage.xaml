@@ -4,11 +4,19 @@
              x:Class="ParavarejoApp.Views.ItemsPage"
              Title="{Binding Title}"
              xmlns:local="clr-namespace:ParavarejoApp.ViewModels"  
-             xmlns:model="clr-namespace:ParavarejoApp.Models"  
+             xmlns:model="clr-namespace:ParavarejoApp.Models.ParavarejoLucroReal"
+             xmlns:resources="clr-namespace:ParavarejoApp.Views.Resources"
              x:Name="BrowseItemsPage">
 
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <resources:EnumDescriptionConverter x:Key="EnumDescriptionConverter" />
+            <resources:BooleanReverseConverter x:Key="BooleanReverseConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add" Command="{Binding AddItemCommand}" />
+        <!--<ToolbarItem Text="Add" Command="{Binding AddItemCommand}" />-->
     </ContentPage.ToolbarItems>
     <!--
       x:DataType enables compiled bindings for better performance and compile time validation of binding expressions.
@@ -20,15 +28,12 @@
                 SelectionMode="None">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout Padding="10" x:DataType="model:Item">
-                        <Label Text="{Binding Text}" 
-                            LineBreakMode="NoWrap" 
-                            Style="{DynamicResource ListItemTextStyle}" 
-                            FontSize="16" />
+                    <StackLayout Padding="10" x:DataType="model:LucroRealItem">
+
                         <Label Text="{Binding Description}" 
                             LineBreakMode="NoWrap"
                             Style="{DynamicResource ListItemDetailTextStyle}"
-                            FontSize="13" />
+                            FontSize="Large" />
                         <StackLayout.GestureRecognizers>
                             <TapGestureRecognizer 
                                 NumberOfTapsRequired="1"
